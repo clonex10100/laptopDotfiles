@@ -32,7 +32,7 @@ blue=#268bd2
 cyan=#2aa198
 green=#859900
 
-[bar/example]
+[bar/main]
 ;monitor = ${env:MONITOR:HDMI-1}
 
 bottom=false
@@ -59,7 +59,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = mpdRestart mpdPrev mpdBackward mpd mpdForward mpdNext mpdToggle
-modules-right = reddit updates bluetooth pulseaudio gpuTemp cpuTemp cpu memory filesystem date
+modules-right = reddit updates oxoscr bluetooth pulseaudio gpuTemp cpuTemp cpu memory filesystem date
 
 #tray-position = right
 #tray-padding = 2
@@ -269,6 +269,12 @@ interval = 10
 
 format-underline = ${colors.orange}
 
+[module/oxoscr]
+type = custom/script
+exec = ~/.config/polybar/scripts/oxo.sh
+interval = 0.5
+click-left = xclip -in -selection c /tmp/oxoscr && rm /tmp/oxoscr
+format-underline = ${colors.blue}
 
 [module/cpuTemp]
 type = internal/temperature
@@ -331,6 +337,7 @@ base-temperature = 20
 ; Threshold temperature to display warning label (in degrees celsius)
 ; Default: 80
 warn-temperature = 80
+
 
 [settings]
 screenchange-reload = true
