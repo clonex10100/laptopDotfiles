@@ -1,9 +1,9 @@
 [options]
 #font = Deja Vu Sans Mono 11
 #font = Inconsolata 9
-font = Anonymous Pro 12
-#font = Fira Mono 11
-#font = Monofur 12
+#font = Anonymous Pro 12
+#font = Fira Code 11
+font = Monofur 12
 
 [colors]
 
