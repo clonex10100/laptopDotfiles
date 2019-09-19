@@ -30,6 +30,10 @@ export XDG_CONFIG_HOME=~/.config
 alias q="exit"
 alias c="clear"
 alias ls='ls --color=auto'
+alias lo="learn open"
+alias le="learn"
+alias lsu="learn submit"
+alias lff="learn --f-f"
 
 #Alias for pacman installations/removal
 alias pac="sudo pacman -Syu"
@@ -81,7 +85,7 @@ pl(){
     cat ~/playlists/$1 | mpc add
     mpc play
 }
-#adds songs to playlist 
+#adds songs to playlist
 addToPlaylist(){
     if [ ! -f ~/playlists/$1 ]; then
         touch ~/playlists/$1
@@ -112,7 +116,7 @@ upScr(){
 }
 
 
-
+alias lab="cd ~/labs/object_oriented"
 
 #Add qmk tools to path
 export PATH="$PATH:$HOME/qmk_firmware/bin"
