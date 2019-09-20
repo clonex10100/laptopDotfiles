@@ -15,6 +15,7 @@
 ;   The README contains a lot of information
 ;
 ;==========================================================
+
 [colors]
 background = #002b36
 background-alt = #073642
@@ -58,8 +59,8 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
 modules-left = i3
-modules-center = mpdRestart mpdPrev mpdBackward mpd mpdForward mpdNext mpdToggle
-modules-right = reddit updates oxoscr bluetooth pulseaudio gpuTemp cpuTemp cpu memory filesystem date
+#modules-center = mpdRestart mpdPrev mpdBackward mpd mpdForward mpdNext mpdToggle
+modules-right = pulseaudio externalBat internalBat cpu memory filesystem date
 
 #tray-position = right
 #tray-padding = 2
@@ -139,14 +140,14 @@ interface = enp24s0
 interval = 3.0
 
 format-connected-underline = ${colors.green}
-format-connected-prefix-foreground = ${colors.foreground-alt}
+format-connected-prefix-foreground = ${colors.foreground}
 label-connected = %local_ip%
 
 label-disconnected = NOT CONNECTED
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+;label-disconnected-foreground = ${colors.foreground}
 
 [module/date]
 type = internal/date
@@ -338,6 +339,74 @@ base-temperature = 20
 ; Default: 80
 warn-temperature = 80
 
+[module/externalBat]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-underline = ${colors.violet}
+
+format-full-prefix = "- "
+format-full-prefix-foreground = ${colors.foreground}
+format-full-underline = ${colors.green}
+
+ramp-capacity-0 = -
+ramp-capacity-1 = -
+ramp-capacity-2 = -
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = -
+animation-charging-1 = -
+animation-charging-2 = -
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+animation-discharging-0 = -
+animation-discharging-1 = -
+animation-discharging-2 = -
+animation-discharging-foreground = ${colors.foreground}
+animation-discharging-framerate = 750
+
+
+[module/internalBat]
+type = internal/battery
+battery = BAT1
+adapter = AC
+full-at = 98
+
+format-prefix = "Internal: "
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-underline = ${colors.cyan}
+
+format-full-prefix = "- "
+format-full-prefix-foreground = ${colors.foreground}
+format-full-underline = ${colors.green}
+
+ramp-capacity-0 = -
+ramp-capacity-1 = -
+ramp-capacity-2 = -
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = -
+animation-charging-1 = -
+animation-charging-2 = -
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+animation-discharging-0 = -
+animation-discharging-1 = -
+animation-discharging-2 = -
+animation-discharging-foreground = ${colors.foreground}
+animation-discharging-framerate = 750
 
 [settings]
 screenchange-reload = true
