@@ -15,6 +15,7 @@
 ;   The README contains a lot of information
 ;
 ;==========================================================
+
 [colors]
 background = #002b36
 background-alt = #073642
@@ -36,10 +37,10 @@ green=#859900
 ;monitor = ${env:MONITOR:HDMI-1}
 
 bottom=false
-width = 100%:-20
-height = 27
-offset-x = 10
-offset-y = 10
+width = 100%:-9
+height = 25
+offset-x = 5
+offset-y = 5
 fixed-center = true
 
 background = ${colors.background}
@@ -59,7 +60,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = mpdRestart mpdPrev mpdBackward mpd mpdForward mpdNext mpdToggle
-modules-right = reddit updates oxoscr bluetooth pulseaudio gpuTemp cpuTemp cpu memory filesystem date
+modules-right = pulseaudio backlight externalBat internalBat cpuTemp cpu memory filesystem date
 
 #tray-position = right
 #tray-padding = 2
@@ -139,14 +140,14 @@ interface = enp24s0
 interval = 3.0
 
 format-connected-underline = ${colors.green}
-format-connected-prefix-foreground = ${colors.foreground-alt}
+format-connected-prefix-foreground = ${colors.foreground}
 label-connected = %local_ip%
 
 label-disconnected = NOT CONNECTED
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
+;label-disconnected-foreground = ${colors.foreground}
 
 [module/date]
 type = internal/date
@@ -164,9 +165,8 @@ label = %date% %time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
-
 format-volume = <label-volume>
-label-volume = PA:on
+label-volume = PA:%percentage%%
 label-volume-underline = ${colors.cyan}
 
 label-muted =  PA:off
@@ -182,7 +182,7 @@ format-online= <label-song> <bar-progress> <label-time>
 label-song = %title%
 format-online-underline = ${colors.green}
 
-bar-progress-width = 45
+bar-progress-width = 20
 bar-progress-indicator = |
 bar-progress-fill = %{F#cb4b16}-%{F-}
 bar-progress-empty = -
@@ -290,14 +290,14 @@ format-warn-underline = ${colors.red}
 ; To list all the zone types, run 
 ; $ for i in /sys/class/thermal/thermal_zone*; do echo "$i: $(<$i/type)"; done
 ; Default: 0
-thermal-zone = 0
+thermal-zone = 3
 
 ; Full path of temperature sysfs path
 ; Use `sensors` to find preferred temperature source, then run
 ; $ for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
 ; to find path to desired file
 ; Default reverts to thermal zone setting
-hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input
+;hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon1/temp1_input
 ; Base temperature for where to start the ramp (in degrees celsius)
 ; Default: 0
 base-temperature = 20
@@ -338,6 +338,80 @@ base-temperature = 20
 ; Default: 80
 warn-temperature = 80
 
+[module/internalBat]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-underline = ${colors.violet}
+
+format-full-prefix = "- "
+format-full-prefix-foreground = ${colors.foreground}
+format-full-underline = ${colors.green}
+
+ramp-capacity-0 = -
+ramp-capacity-1 = -
+ramp-capacity-2 = -
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = -
+animation-charging-1 = -
+animation-charging-2 = -
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+animation-discharging-0 = -
+animation-discharging-1 = -
+animation-discharging-2 = -
+animation-discharging-foreground = ${colors.foreground}
+animation-discharging-framerate = 750
+
+
+[module/externalBat]
+type = internal/battery
+battery = BAT1
+adapter = AC
+full-at = 98
+
+format-prefix = "Internal: "
+
+format-charging = <animation-charging> <label-charging>
+format-charging-underline = #ffb52a
+
+format-discharging = <animation-discharging> <label-discharging>
+format-discharging-underline = ${colors.cyan}
+
+format-full-prefix = "- "
+format-full-prefix-foreground = ${colors.foreground}
+format-full-underline = ${colors.green}
+
+ramp-capacity-0 = -
+ramp-capacity-1 = -
+ramp-capacity-2 = -
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = -
+animation-charging-1 = -
+animation-charging-2 = -
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+animation-discharging-0 = -
+animation-discharging-1 = -
+animation-discharging-2 = -
+animation-discharging-foreground = ${colors.foreground}
+animation-discharging-framerate = 750
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+format-prefix = "BL:"
+format-underline = ${colors.magenta}
 
 [settings]
 screenchange-reload = true
@@ -352,3 +426,4 @@ screenchange-reload = true
 ;margin-bottom = 5
 
 ; vim:ft=dosini
+

@@ -1,0 +1,3 @@
+#!/bin/bash
+cat /sys/bus/serio/devices/serio2/speed
+cat /sys/bus/serio/devices/serio2/sensitivity
